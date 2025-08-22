@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Jogos aí pra voce mano</title>
+    <link rel="stylesheet" href="{% static 'lista/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Jogos:</h1>
+        <a href="{% url 'lista:create_jogo' %}" class="add-link">Adicionar Novo Jogo</a>
+        {% if jogos %}
+            <ul>
+                {% for jogo in jogos %}
+                    <li>
+                        <div class="contact-info">
+                            <a href="{% url 'lista:jogo_detalhe' jogo.pk %}">{{ jogo.titulo }} - {{jogo.desenvolvedora}}</a>
+                        </div>
+                        <div class="action-links">
+                            <a href="{% url 'lista:jogo_editar' jogo.pk %}" class="edit-link">Editar</a>
+                            <a href="{% url 'lista:jogo_excluir' jogo.pk %}" class="delete-link">Excluir</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="empty-list">Nenhum jogo ainda. Clique em "Adicionar Novo Jogo" para começar!</p>
+        {% endif %}
+    </div>
+</body>
+</html>
